@@ -1,18 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>クシロAIナビ</title>
+
+<style>
+body{
+  font-family:sans-serif;
+  margin:0;
+  background:#eef3ff;
+}
+
+header{
+  background:#4a6cf7;
+  color:white;
+  text-align:center;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  margin:12px;
+  padding:15px;
+  border-radius:12px;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:#4a6cf7;
+  color:white;
+}
+</style>
 </head>
+
 <body>
 
-<h1>🗺 クシロAIナビ</h1>
+<header>
+  🗺 クシロAIナビ
+</header>
 
-<p>GitHub接続テスト成功！</p>
+<div class="card">
+  <h3>🌤 天気</h3>
 
-<button onclick="alert('クシロAIナビ起動')">
-ナビ開始
-</button>
+  <select id="weather">
+    <option value="clear">晴れ</option>
+    <option value="fog">霧</option>
+    <option value="rain">雨</option>
+  </select>
+
+  <br><br>
+
+  <button onclick="startNav()">
+    🚀 ナビ開始
+  </button>
+</div>
+
+<div class="card" id="result">
+
+クシロへようこそ！
+
+</div>
+
+<script>
+
+function startNav(){
+
+const weather =
+document.getElementById("weather").value;
+
+let route="";
+
+if(weather==="clear"){
+route="釧路湿原 → 和商市場 → 幣舞橋 → 釧路港";
+}
+
+if(weather==="fog"){
+route="和商市場 → 炉端焼き → 幣舞橋 → 釧路港";
+}
+
+if(weather==="rain"){
+route="和商市場 → カフェ → 炉端焼き";
+}
+
+document.getElementById("result").innerHTML=
+"<h3>今日のおすすめルート</h3><p>"+route+"</p>";
+
+}
+
+</script>
 
 </body>
 </html>
