@@ -1,46 +1,35 @@
 <div class="card">
-<h2>📍 GPS現在地</h2>
+<h2>🎯 釧路スタンプラリー</h2>
 
-<p id="gpsText">
-現在地を取得して、近くの観光地を探します。
-</p>
+<p id="stampResult">まだスタンプはありません。</p>
 
-<button onclick="getGPS()">
-📍 現在地を取得
-</button>
+<button onclick="getStamp('釧路湿原')">🌿 釧路湿原スタンプ</button>
+<button onclick="getStamp('幣舞橋')">🌉 幣舞橋スタンプ</button>
+<button onclick="getStamp('和商市場')">🍣 和商市場スタンプ</button>
+<button onclick="getStamp('炉端焼き')">🔥 炉端焼きスタンプ</button>
+<button onclick="getStamp('釧路駅')">🚉 釧路駅スタンプ</button>
+<button onclick="getStamp('釧路空港')">✈️ 釧路空港スタンプ</button>
 </div>
 
 <script>
-function getGPS(){
+let stamps = [];
 
-  if(!navigator.geolocation){
-    document.getElementById("gpsText").innerText =
-    "この端末ではGPSが使えません。";
-    return;
+function getStamp(place){
+
+  if(!stamps.includes(place)){
+    stamps.push(place);
   }
 
-  document.getElementById("gpsText").innerText =
-  "現在地を取得中です...";
+  let html = "<h3>集めたスタンプ</h3>";
 
-  navigator.geolocation.getCurrentPosition(
-    function(position){
+  stamps.forEach(function(s){
+    html += "<p>✅ " + s + "</p>";
+  });
 
-      const lat = position.coords.latitude;
-      const lng = position.coords.longitude;
+  if(stamps.length >= 6){
+    html += "<h3>🎉 クシロマスター達成！</h3>";
+  }
 
-      document.getElementById("gpsText").innerText =
-      "現在地を取得しました。近くの観光地を開けます。";
-
-      const url =
-      "https://www.google.com/maps/search/釧路 観光地/@" +
-      lat + "," + lng + ",14z";
-
-      window.open(url, "_blank");
-    },
-    function(){
-      document.getElementById("gpsText").innerText =
-      "現在地を取得できませんでした。位置情報を許可してください。";
-    }
-  );
+  document.getElementById("stampResult").innerHTML = html;
 }
 </script>
