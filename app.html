@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -10,19 +9,15 @@
 body{
   font-family:sans-serif;
   margin:0;
+  padding-bottom:70px;
   background:#eef3ff;
-  color:#222;
-}
-
-body.rain{
-  background:#dce8f2;
 }
 
 header{
   background:linear-gradient(90deg,#4a6cf7,#6bbcff);
   color:white;
   text-align:center;
-  padding:22px;
+  padding:20px;
   font-size:24px;
   font-weight:bold;
 }
@@ -33,21 +28,6 @@ header{
   padding:15px;
   border-radius:16px;
   box-shadow:0 3px 10px rgba(0,0,0,.08);
-}
-
-.hero{
-  background:linear-gradient(180deg,#ffffff,#eef6ff);
-  text-align:center;
-}
-
-.kiri{
-  background:#fff8dc;
-}
-
-img{
-  width:100%;
-  border-radius:14px;
-  margin-top:8px;
 }
 
 button{
@@ -61,77 +41,65 @@ button{
   font-size:15px;
 }
 
-.rain button{
-  background:#3f6f91;
+.kiri-fixed{
+  position:fixed;
+  right:15px;
+  bottom:80px;
+  background:#fff8dc;
+  padding:12px;
+  border-radius:50%;
+  font-size:34px;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+  z-index:999;
 }
 
-.small{
-  font-size:13px;
-  color:#666;
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 0;
+  box-shadow:0 -2px 10px rgba(0,0,0,.12);
+  font-size:12px;
 }
 </style>
-
 </head>
 
 <body>
 
-<header>
-🗺 クシロAIナビ
-</header>
+<header>🗺 クシロAIナビ</header>
 
-<div class="card hero">
+<div class="card">
 <h2>🏠 ホーム</h2>
-<p>釧路の自然・夕日・グルメを楽しむ観光アプリ</p>
-<p class="small">湿原・市場・夕日・炉端焼きをキリ君が案内します</p>
-</div>
-
-<div class="card kiri">
-<h2>🐻 キリ君</h2>
-<p id="kiriText">こんにちは！今日はどんな釧路を楽しむ？</p>
-<button onclick="kiriTalk()">キリ君に聞く</button>
+<p>釧路の自然・夕日・グルメ・交通を楽しむ観光アプリです。</p>
 </div>
 
 <div class="card">
 <h2>🌟 今日のおすすめ</h2>
-<p id="recommend">ボタンを押すと今日のおすすめが出ます。</p>
+<p id="recommend">ボタンを押すとおすすめが出ます。</p>
 <button onclick="todayRecommend()">今日のおすすめを見る</button>
 </div>
 
 <div class="card">
-<h2>🌧 雨の日モード</h2>
-<p id="weatherText">通常モードです。</p>
-<button onclick="rainMode()">雨の日モードにする</button>
-<button onclick="normalMode()">通常モードに戻す</button>
+<h2>🚉 釧路駅</h2>
+<p>釧路観光のスタート地点。市内観光や移動の拠点です。</p>
+<button onclick="openMap('釧路駅')">釧路駅を地図で開く</button>
 </div>
 
 <div class="card">
-<h2>🧭 天気別ルート</h2>
-<select id="weather">
-<option value="clear">晴れ</option>
-<option value="fog">霧</option>
-<option value="rain">雨</option>
-</select>
-<button onclick="weatherRoute()">ルートを作る</button>
-<p id="routeText">天気を選んでください。</p>
+<h2>✈️ 釧路空港</h2>
+<p>道東観光の玄関口。釧路・阿寒・湿原観光の入り口です。</p>
+<button onclick="openMap('たんちょう釧路空港')">釧路空港を地図で開く</button>
 </div>
 
 <div class="card">
-<h2>📸 釧路の写真カード</h2>
-
-<h3>🌿 釧路湿原</h3>
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80">
-<p>広大な自然と静けさを感じられる、釧路を代表するスポット。</p>
-<button onclick="openMap('釧路湿原')">釧路湿原を地図で開く</button>
-
-<h3>🌉 幣舞橋</h3>
-<img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80">
-<p>夕方に訪れると、港と空が美しく染まる夕日の名所。</p>
-<button onclick="openMap('幣舞橋')">幣舞橋を地図で開く</button>
-
-<h3>🍣 和商市場</h3>
-<img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=80">
-<p>勝手丼で有名な市場。自分で選ぶ海鮮体験が楽しめます。</p>
-<button onclick="openMap('和商市場')">和商市場を地図で開く</button>
+<h2>🌿 観光スポット</h2>
+<button onclick="openMap('釧路湿原')">釧路湿原</button>
+<button onclick="openMap('幣舞橋')">幣舞橋</button>
+<button onclick="openMap('釧路港')">釧路港</button>
 </div>
 
 <div class="card">
@@ -145,90 +113,51 @@ button{
 <button onclick="openRoute()">おすすめルートを開く</button>
 </div>
 
-<script>
+<div class="kiri-fixed" onclick="kiriTalk()">🐻</div>
 
+<div class="bottom-nav">
+  <div>🏠<br>ホーム</div>
+  <div>🌿<br>観光</div>
+  <div>🍣<br>グルメ</div>
+  <div>🗺<br>地図</div>
+</div>
+
+<script>
 function openMap(place){
-window.open(
-"https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(place),
-"_blank"
-);
+  window.open(
+    "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(place),
+    "_blank"
+  );
 }
 
 function openRoute(){
-window.open(
-"https://www.google.com/maps/dir/釧路湿原/和商市場/幣舞橋/釧路 炉端焼き",
-"_blank"
-);
+  window.open(
+    "https://www.google.com/maps/dir/たんちょう釧路空港/釧路駅/釧路湿原/和商市場/幣舞橋/釧路 炉端焼き",
+    "_blank"
+  );
 }
 
 function kiriTalk(){
-
-const messages = [
-"今日は幣舞橋の夕日がおすすめだよ。",
-"釧路湿原で大自然を楽しもう。",
-"和商市場の勝手丼は絶対食べてほしいな。",
-"夜は炉端焼きで釧路らしい時間を楽しもう。",
-"雨の日は市場と炉端焼きがぴったりだよ。"
-];
-
-const text = messages[Math.floor(Math.random()*messages.length)];
-
-document.getElementById("kiriText").innerText = text;
-
+  const messages = [
+    "釧路駅から旅を始めよう！",
+    "空港から来たら、まず市内へ向かうのがおすすめだよ。",
+    "夕方は幣舞橋の夕日を見てね。",
+    "夜は炉端焼きで釧路らしい時間を楽しもう。"
+  ];
+  alert("🐻 キリ君\n\n" + messages[Math.floor(Math.random()*messages.length)]);
 }
 
 function todayRecommend(){
-
-const list = [
-"🌿 釧路湿原で自然を感じる",
-"🌉 幣舞橋で夕日を見る",
-"🍣 和商市場で勝手丼を楽しむ",
-"🔥 夜は炉端焼きがおすすめ",
-"🌧 雨の日は市場と炉端焼きでゆっくり"
-];
-
-const text = list[Math.floor(Math.random()*list.length)];
-
-document.getElementById("recommend").innerText = text;
-
+  const list = [
+    "🌿 釧路湿原で自然を感じる",
+    "🌉 幣舞橋で夕日を見る",
+    "🍣 和商市場で勝手丼を楽しむ",
+    "🔥 夜は炉端焼きがおすすめ",
+    "✈️ 空港から釧路駅へ移動して市内観光"
+  ];
+  document.getElementById("recommend").innerText =
+    list[Math.floor(Math.random()*list.length)];
 }
-
-function rainMode(){
-document.body.classList.add("rain");
-document.getElementById("weatherText").innerText =
-"雨の日モードです。市場・炉端焼き・カフェ中心がおすすめです。";
-document.getElementById("kiriText").innerText =
-"雨の日の釧路は、ゆっくり味わうのがいいよ。";
-}
-
-function normalMode(){
-document.body.classList.remove("rain");
-document.getElementById("weatherText").innerText =
-"通常モードです。";
-}
-
-function weatherRoute(){
-
-const weather = document.getElementById("weather").value;
-
-let route = "";
-
-if(weather === "clear"){
-route = "晴れ：釧路湿原 → 和商市場 → 幣舞橋 → 炉端焼き";
-}
-
-if(weather === "fog"){
-route = "霧：和商市場 → 釧路港 → 幣舞橋 → 炉端焼き";
-}
-
-if(weather === "rain"){
-route = "雨：和商市場 → カフェ → 炉端焼き";
-}
-
-document.getElementById("routeText").innerText = route;
-
-}
-
 </script>
 
 </body>
