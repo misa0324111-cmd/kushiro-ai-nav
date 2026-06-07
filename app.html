@@ -1,38 +1,46 @@
 <div class="card">
-<h2>🐻 キリ君チャット</h2>
+<h2>📍 GPS現在地</h2>
 
-<p id="chatBox">
-キリ君：何を知りたい？
+<p id="gpsText">
+現在地を取得して、近くの観光地を探します。
 </p>
 
-<button onclick="chatKiri('グルメ')">🍣 グルメ</button>
-<button onclick="chatKiri('絶景')">🌉 絶景</button>
-<button onclick="chatKiri('雨の日')">🌧 雨の日</button>
-<button onclick="chatKiri('ルート')">🗺 ルート</button>
+<button onclick="getGPS()">
+📍 現在地を取得
+</button>
 </div>
 
 <script>
-function chatKiri(type){
+function getGPS(){
 
-let answer = "";
+  if(!navigator.geolocation){
+    document.getElementById("gpsText").innerText =
+    "この端末ではGPSが使えません。";
+    return;
+  }
 
-if(type === "グルメ"){
-answer = "キリ君：グルメなら和商市場の勝手丼と、夜の炉端焼きがおすすめだよ。";
-}
+  document.getElementById("gpsText").innerText =
+  "現在地を取得中です...";
 
-if(type === "絶景"){
-answer = "キリ君：絶景なら幣舞橋の夕日と釧路湿原が最高だよ。";
-}
+  navigator.geolocation.getCurrentPosition(
+    function(position){
 
-if(type === "雨の日"){
-answer = "キリ君：雨の日は和商市場、カフェ、炉端焼きでゆっくり楽しもう。";
-}
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
 
-if(type === "ルート"){
-answer = "キリ君：おすすめは、釧路湿原 → 和商市場 → 幣舞橋 → 炉端焼きだよ。";
-}
+      document.getElementById("gpsText").innerText =
+      "現在地を取得しました。近くの観光地を開けます。";
 
-document.getElementById("chatBox").innerText = answer;
+      const url =
+      "https://www.google.com/maps/search/釧路 観光地/@" +
+      lat + "," + lng + ",14z";
 
+      window.open(url, "_blank");
+    },
+    function(){
+      document.getElementById("gpsText").innerText =
+      "現在地を取得できませんでした。位置情報を許可してください。";
+    }
+  );
 }
 </script>
