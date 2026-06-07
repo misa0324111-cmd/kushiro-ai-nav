@@ -1,164 +1,28 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>クシロAIナビ</title>
-
-<style>
-body{
-  font-family:sans-serif;
-  margin:0;
-  padding-bottom:70px;
-  background:#eef3ff;
-}
-
-header{
-  background:linear-gradient(90deg,#4a6cf7,#6bbcff);
-  color:white;
-  text-align:center;
-  padding:20px;
-  font-size:24px;
-  font-weight:bold;
-}
-
-.card{
-  background:white;
-  margin:12px;
-  padding:15px;
-  border-radius:16px;
-  box-shadow:0 3px 10px rgba(0,0,0,.08);
-}
-
-button{
-  width:100%;
-  padding:12px;
-  margin-top:8px;
-  border:none;
-  border-radius:10px;
-  background:#4a6cf7;
-  color:white;
-  font-size:15px;
-}
-
-.kiri-fixed{
-  position:fixed;
-  right:15px;
-  bottom:80px;
-  background:#fff8dc;
-  padding:12px;
-  border-radius:50%;
-  font-size:34px;
-  box-shadow:0 4px 12px rgba(0,0,0,.2);
-  z-index:999;
-}
-
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:white;
-  display:flex;
-  justify-content:space-around;
-  padding:10px 0;
-  box-shadow:0 -2px 10px rgba(0,0,0,.12);
-  font-size:12px;
-}
-</style>
-</head>
-
-<body>
-
-<header>🗺 クシロAIナビ</header>
-
 <div class="card">
-<h2>🏠 ホーム</h2>
-<p>釧路の自然・夕日・グルメ・交通を楽しむ観光アプリです。</p>
+<h2>📸 釧路おすすめ写真</h2>
+
+<h3>🌿 釧路湿原</h3>
+<img src="https://source.unsplash.com/900x500/?wetland,hokaido,nature" style="width:100%;border-radius:14px;">
+<button onclick="openMap('釧路湿原')">地図で開く</button>
+
+<h3>🌉 幣舞橋</h3>
+<img src="https://source.unsplash.com/900x500/?sunset,bridge,japan" style="width:100%;border-radius:14px;">
+<button onclick="openMap('幣舞橋')">地図で開く</button>
+
+<h3>🍣 和商市場</h3>
+<img src="https://source.unsplash.com/900x500/?seafood,market,japan" style="width:100%;border-radius:14px;">
+<button onclick="openMap('和商市場')">地図で開く</button>
+
+<h3>🚉 釧路駅</h3>
+<img src="https://source.unsplash.com/900x500/?japan,station" style="width:100%;border-radius:14px;">
+<button onclick="openMap('釧路駅')">地図で開く</button>
+
+<h3>✈️ たんちょう釧路空港</h3>
+<img src="https://source.unsplash.com/900x500/?airport,japan" style="width:100%;border-radius:14px;">
+<button onclick="openMap('たんちょう釧路空港')">地図で開く</button>
+
+<h3>🍝 レストラン泉屋・スパカツ</h3>
+<img src="https://source.unsplash.com/900x500/?spaghetti,katsu,japan" style="width:100%;border-radius:14px;">
+<button onclick="openMap('レストラン泉屋 釧路 スパカツ')">地図で開く</button>
+
 </div>
-
-<div class="card">
-<h2>🌟 今日のおすすめ</h2>
-<p id="recommend">ボタンを押すとおすすめが出ます。</p>
-<button onclick="todayRecommend()">今日のおすすめを見る</button>
-</div>
-
-<div class="card">
-<h2>🚉 釧路駅</h2>
-<p>釧路観光のスタート地点。市内観光や移動の拠点です。</p>
-<button onclick="openMap('釧路駅')">釧路駅を地図で開く</button>
-</div>
-
-<div class="card">
-<h2>✈️ 釧路空港</h2>
-<p>道東観光の玄関口。釧路・阿寒・湿原観光の入り口です。</p>
-<button onclick="openMap('たんちょう釧路空港')">釧路空港を地図で開く</button>
-</div>
-
-<div class="card">
-<h2>🌿 観光スポット</h2>
-<button onclick="openMap('釧路湿原')">釧路湿原</button>
-<button onclick="openMap('幣舞橋')">幣舞橋</button>
-<button onclick="openMap('釧路港')">釧路港</button>
-</div>
-
-<div class="card">
-<h2>🍣 グルメ</h2>
-<button onclick="openMap('和商市場')">和商市場・勝手丼</button>
-<button onclick="openMap('釧路 炉端焼き')">炉端焼き</button>
-</div>
-
-<div class="card">
-<h2>🗺 Googleマップ</h2>
-<button onclick="openRoute()">おすすめルートを開く</button>
-</div>
-
-<div class="kiri-fixed" onclick="kiriTalk()">🐻</div>
-
-<div class="bottom-nav">
-  <div>🏠<br>ホーム</div>
-  <div>🌿<br>観光</div>
-  <div>🍣<br>グルメ</div>
-  <div>🗺<br>地図</div>
-</div>
-
-<script>
-function openMap(place){
-  window.open(
-    "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(place),
-    "_blank"
-  );
-}
-
-function openRoute(){
-  window.open(
-    "https://www.google.com/maps/dir/たんちょう釧路空港/釧路駅/釧路湿原/和商市場/幣舞橋/釧路 炉端焼き",
-    "_blank"
-  );
-}
-
-function kiriTalk(){
-  const messages = [
-    "釧路駅から旅を始めよう！",
-    "空港から来たら、まず市内へ向かうのがおすすめだよ。",
-    "夕方は幣舞橋の夕日を見てね。",
-    "夜は炉端焼きで釧路らしい時間を楽しもう。"
-  ];
-  alert("🐻 キリ君\n\n" + messages[Math.floor(Math.random()*messages.length)]);
-}
-
-function todayRecommend(){
-  const list = [
-    "🌿 釧路湿原で自然を感じる",
-    "🌉 幣舞橋で夕日を見る",
-    "🍣 和商市場で勝手丼を楽しむ",
-    "🔥 夜は炉端焼きがおすすめ",
-    "✈️ 空港から釧路駅へ移動して市内観光"
-  ];
-  document.getElementById("recommend").innerText =
-    list[Math.floor(Math.random()*list.length)];
-}
-</script>
-
-</body>
-</html>
