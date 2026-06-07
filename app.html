@@ -1,28 +1,38 @@
 <div class="card">
-<h2>📸 釧路おすすめ写真</h2>
+<h2>🐻 キリ君チャット</h2>
 
-<h3>🌿 釧路湿原</h3>
-<img src="https://source.unsplash.com/900x500/?wetland,hokaido,nature" style="width:100%;border-radius:14px;">
-<button onclick="openMap('釧路湿原')">地図で開く</button>
+<p id="chatBox">
+キリ君：何を知りたい？
+</p>
 
-<h3>🌉 幣舞橋</h3>
-<img src="https://source.unsplash.com/900x500/?sunset,bridge,japan" style="width:100%;border-radius:14px;">
-<button onclick="openMap('幣舞橋')">地図で開く</button>
-
-<h3>🍣 和商市場</h3>
-<img src="https://source.unsplash.com/900x500/?seafood,market,japan" style="width:100%;border-radius:14px;">
-<button onclick="openMap('和商市場')">地図で開く</button>
-
-<h3>🚉 釧路駅</h3>
-<img src="https://source.unsplash.com/900x500/?japan,station" style="width:100%;border-radius:14px;">
-<button onclick="openMap('釧路駅')">地図で開く</button>
-
-<h3>✈️ たんちょう釧路空港</h3>
-<img src="https://source.unsplash.com/900x500/?airport,japan" style="width:100%;border-radius:14px;">
-<button onclick="openMap('たんちょう釧路空港')">地図で開く</button>
-
-<h3>🍝 レストラン泉屋・スパカツ</h3>
-<img src="https://source.unsplash.com/900x500/?spaghetti,katsu,japan" style="width:100%;border-radius:14px;">
-<button onclick="openMap('レストラン泉屋 釧路 スパカツ')">地図で開く</button>
-
+<button onclick="chatKiri('グルメ')">🍣 グルメ</button>
+<button onclick="chatKiri('絶景')">🌉 絶景</button>
+<button onclick="chatKiri('雨の日')">🌧 雨の日</button>
+<button onclick="chatKiri('ルート')">🗺 ルート</button>
 </div>
+
+<script>
+function chatKiri(type){
+
+let answer = "";
+
+if(type === "グルメ"){
+answer = "キリ君：グルメなら和商市場の勝手丼と、夜の炉端焼きがおすすめだよ。";
+}
+
+if(type === "絶景"){
+answer = "キリ君：絶景なら幣舞橋の夕日と釧路湿原が最高だよ。";
+}
+
+if(type === "雨の日"){
+answer = "キリ君：雨の日は和商市場、カフェ、炉端焼きでゆっくり楽しもう。";
+}
+
+if(type === "ルート"){
+answer = "キリ君：おすすめは、釧路湿原 → 和商市場 → 幣舞橋 → 炉端焼きだよ。";
+}
+
+document.getElementById("chatBox").innerText = answer;
+
+}
+</script>
