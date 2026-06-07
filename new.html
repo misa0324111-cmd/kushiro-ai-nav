@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>クシロAIナビ</title>
+
+<style>
+body{
+  font-family:sans-serif;
+  margin:0;
+  padding-bottom:80px;
+  background:#eef3ff;
+  color:#1f2937;
+}
+
+header{
+  background:linear-gradient(135deg,#2563eb,#38bdf8);
+  color:white;
+  text-align:center;
+  padding:24px 16px;
+  font-size:24px;
+  font-weight:bold;
+}
+
+.card{
+  background:white;
+  margin:14px;
+  padding:16px;
+  border-radius:20px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+
+button{
+  width:100%;
+  padding:13px;
+  margin-top:10px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#2563eb,#38bdf8);
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+}
+
+.kiri-fixed{
+  position:fixed;
+  right:16px;
+  bottom:86px;
+  background:#fff8dc;
+  padding:14px;
+  border-radius:50%;
+  font-size:36px;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+  z-index:999;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 0;
+  box-shadow:0 -3px 16px rgba(0,0,0,.12);
+  font-size:12px;
+}
+
+.bottom-nav div{
+  text-align:center;
+  color:#2563eb;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>🗺 クシロAIナビ</header>
+
+<div class="card">
+<h2>🏠 ホーム</h2>
+<p>釧路の自然・夕日・グルメを楽しむ観光アプリです。</p>
+</div>
+
+<div class="card">
+<h2>🐻 キリ君</h2>
+<p id="kiriText">こんにちは！釧路を案内するよ。</p>
+<button onclick="kiriTalk()">キリ君に聞く</button>
+</div>
+
+<div class="card">
+<h2>🌟 今日のおすすめ</h2>
+<p id="recommend">ボタンを押すとおすすめが出ます。</p>
+<button onclick="todayRecommend()">今日のおすすめを見る</button>
+</div>
+
+<div class="card">
+<h2>🌿 観光スポット</h2>
+<button onclick="openMap('釧路湿原')">釧路湿原</button>
+<button onclick="openMap('幣舞橋')">幣舞橋</button>
+<button onclick="openMap('和商市場')">和商市場</button>
+<button onclick="openMap('釧路駅')">釧路駅</button>
+<button onclick="openMap('たんちょう釧路空港')">釧路空港</button>
+</div>
+
+<div class="card">
+<h2>🍣 グルメ</h2>
+<button onclick="openMap('和商市場')">和商市場・勝手丼</button>
+<button onclick="openMap('釧路 炉端焼き')">炉端焼き</button>
+<button onclick="openMap('レストラン泉屋 釧路 スパカツ')">泉屋・スパカツ</button>
+</div>
+
+<div class="card">
+<h2>🗺 Googleマップ</h2>
+<button onclick="openRoute()">おすすめルートを開く</button>
+</div>
+
+<div class="kiri-fixed" onclick="kiriTalk()">🐻</div>
+
+<div class="bottom-nav">
+<div>🏠<br>ホーム</div>
+<div>🌿<br>観光</div>
+<div>🍣<br>グルメ</div>
+<div>🗺<br>地図</div>
+</div>
+
+<script>
+function openMap(place){
+  window.open(
+    "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(place),
+    "_blank"
+  );
+}
+
+function openRoute(){
+  window.open(
+    "https://www.google.com/maps/dir/たんちょう釧路空港/釧路駅/釧路湿原/和商市場/幣舞橋/釧路 炉端焼き",
+    "_blank"
+  );
+}
+
+function kiriTalk(){
+  const messages = [
+    "今日は幣舞橋の夕日がおすすめだよ。",
+    "釧路湿原で大自然を楽しもう。",
+    "和商市場の勝手丼はぜひ食べてほしいな。",
+    "夜は炉端焼きで釧路らしい時間を楽しもう。"
+  ];
+  const text = messages[Math.floor(Math.random()*messages.length)];
+  document.getElementById("kiriText").innerText = text;
+}
+
+function todayRecommend(){
+  const list = [
+    "🌿 釧路湿原で自然を感じる",
+    "🌉 幣舞橋で夕日を見る",
+    "🍣 和商市場で勝手丼を楽しむ",
+    "🔥 夜は炉端焼きがおすすめ",
+    "🍝 泉屋のスパカツも人気です"
+  ];
+  document.getElementById("recommend").innerText =
+    list[Math.floor(Math.random()*list.length)];
+}
+</script>
+
+</body>
+</html>
