@@ -1,35 +1,106 @@
 <div class="card">
-<h2>🎯 釧路スタンプラリー</h2>
+<h2>🏅 クシロ達成機能</h2>
 
-<p id="stampResult">まだスタンプはありません。</p>
+<p id="badgeResult">まだバッジはありません。</p>
 
-<button onclick="getStamp('釧路湿原')">🌿 釧路湿原スタンプ</button>
-<button onclick="getStamp('幣舞橋')">🌉 幣舞橋スタンプ</button>
-<button onclick="getStamp('和商市場')">🍣 和商市場スタンプ</button>
-<button onclick="getStamp('炉端焼き')">🔥 炉端焼きスタンプ</button>
-<button onclick="getStamp('釧路駅')">🚉 釧路駅スタンプ</button>
-<button onclick="getStamp('釧路空港')">✈️ 釧路空港スタンプ</button>
+<button onclick="checkBadge()">バッジ確認</button>
+<button onclick="resetStamps()">スタンプをリセット</button>
+</div>
+
+<div class="card">
+<h2>🎯 今日のミッション</h2>
+
+<p id="missionResult">ミッションを達成してね。</p>
+
+<button onclick="completeMission('幣舞橋で夕日を見る')">🌉 幣舞橋で夕日を見る</button>
+<button onclick="completeMission('勝手丼を食べる')">🍣 勝手丼を食べる</button>
+<button onclick="completeMission('キリ君に話しかける')">🐻 キリ君に話しかける</button>
 </div>
 
 <script>
-let stamps = [];
+/* 保存されたスタンプを読み込み */
+let savedStamps = JSON.parse(localStorage.getItem("kushiroStamps")) || [];
 
+/* 既存の getStamp を保存対応に上書き */
 function getStamp(place){
 
-  if(!stamps.includes(place)){
-    stamps.push(place);
+  if(!savedStamps.includes(place)){
+    savedStamps.push(place);
+    localStorage.setItem("kushiroStamps", JSON.stringify(savedStamps));
   }
+
+  showStamps();
+}
+
+function showStamps(){
 
   let html = "<h3>集めたスタンプ</h3>";
 
-  stamps.forEach(function(s){
+  if(savedStamps.length === 0){
+    html += "<p>まだスタンプはありません。</p>";
+  }
+
+  savedStamps.forEach(function(s){
     html += "<p>✅ " + s + "</p>";
   });
 
-  if(stamps.length >= 6){
+  if(savedStamps.length >= 6){
     html += "<h3>🎉 クシロマスター達成！</h3>";
   }
 
   document.getElementById("stampResult").innerHTML = html;
 }
+
+/* バッジ確認 */
+function checkBadge(){
+
+  let text = "";
+
+  if(savedStamps.length >= 6){
+    text = "🏅 クシロマスター獲得！";
+  } else if(savedStamps.length >= 3){
+    text = "🌟 クシロビギナー獲得！";
+  } else {
+    text = "あと少しでバッジがもらえます。";
+  }
+
+  document.getElementById("badgeResult").innerText = text;
+}
+
+/* スタンプリセット */
+function resetStamps(){
+
+  localStorage.removeItem("kushiroStamps");
+  savedStamps = [];
+
+  showStamps();
+
+  document.getElementById("badgeResult").innerText =
+  "スタンプをリセットしました。";
+}
+
+/* ミッション機能 */
+let missions = [];
+
+function completeMission(mission){
+
+  if(!missions.includes(mission)){
+    missions.push(mission);
+  }
+
+  let html = "<h3>達成ミッション</h3>";
+
+  missions.forEach(function(m){
+    html += "<p>✅ " + m + "</p>";
+  });
+
+  if(missions.length >= 3){
+    html += "<h3>🎉 今日のミッション全達成！</h3>";
+  }
+
+  document.getElementById("missionResult").innerHTML = html;
+}
+
+/* ページを開いた時に保存スタンプを表示 */
+showStamps();
 </script>
